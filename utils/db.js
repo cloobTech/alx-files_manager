@@ -11,15 +11,11 @@ class DBClient {
     const url = `mongodb://${host}:${port}/`; // Connection URL
     this.client = new MongoClient(url); // Create a new MongoClient
 
-    // set connection state
-    this.isConnect = false;
-
-    // Connect to the DB
+    // // Connect to the DB
     this.client.connect((error) => {
       if (error) {
         console.error('DB connection error:', error);
       } else {
-        this.isConnect = true;
         console.log('DB connected successfully');
       }
     });
@@ -29,7 +25,7 @@ class DBClient {
 
   // Check if the connection is alive
   isAlive() {
-    return this.isConnect;
+    return this.client.topology.isConnected();
   }
 
   //  Create an index on the collection users
